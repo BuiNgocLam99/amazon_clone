@@ -5,17 +5,31 @@ import MapMarkerOutlineIcon from 'vue-material-design-icons/MapMarkerOutline.vue
 import MenuDownIcon from 'vue-material-design-icons/MenuDown.vue';
 import MagnifyIcon from 'vue-material-design-icons/Magnify.vue';
 import CartMinusIcon from 'vue-material-design-icons/CartMinus.vue';
+import MenuIcon from 'vue-material-design-icons/Menu.vue';
+import AccountCircleIcon from 'vue-material-design-icons/AccountCircle.vue';
+import CloseIcon from 'vue-material-design-icons/Close.vue';
+import ChevronRightIcon from 'vue-material-design-icons/ChevronRight.vue';
 
-const showingNavigationDropdown = ref(false);
+let showMenu = ref(false);
+let accountAndList = ref(false);
+
+const accountAndListFunc = (bool) => {
+    setTimeout(() => {
+        accountAndList.value = bool
+    }, 150)
+}
 </script>
 
 <template>
     <div class="min-w-[1150px] bg-gray-100 h-full">
+
+        <div v-if="accountAndList" class="top-0 z-20 fixed w-full h-full bg-black bg-opacity-70"></div>
+
         <div class="flex items-center bg-gray-900 h-[60px] py-2 fixed z-50 min-w-[1150px] w-full">
 
             <div class="flex">
                 <Link class="text-white h-[50px] p-2 pt-3 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
-                    AMAZON
+                    <img width="100" src="\images\logo\AMAZON_LOGO.png" />
                 </Link>
             </div>
 
@@ -42,7 +56,7 @@ const showingNavigationDropdown = ref(false);
                     </div>
                     <MenuDownIcon fillColor="#5E5E5E" :size="20" class="-mr-2" />
                 </div>
-                <input class="block w-full border-none border-transparent focus:border-transparent focus:ring-0" type="text">
+                <input class="block w-full border-none border-transparent focus:border-transparent focus:ring-0" type="text" />
                 <div class="cursor-pointer bg-orange-300 p-[5px] px-2 rounded-r-md">
                     <MagnifyIcon :size="30" />
                 </div>
@@ -51,13 +65,13 @@ const showingNavigationDropdown = ref(false);
             <div class="flex">
                 <div class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-center mt-2.5 px-1">
-                        <img src="https://via.placeholder.com/35x20" alt="">
+                        <img class="mb-3 mr-1" width="23" src="\images\flags\US.png" />
                         <div class="text-[15px] text-white -mt-2 -mr-0.5 font-extrabold">EN</div>
                         <MenuDownIcon fillColor="#c2c2c2" :size="20" class="-mr-4 -mt-1.5 pr-1" />
                     </div>
                 </div>
 
-                <div class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                <div @mouseenter="accountAndListFunc(true)" @mouseleave="accountAndListFunc(false)" class="h-[50px] p-2 border-[1px] border-gray-900 rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
                     <div class="flex items-center justify-center">
                         <div>
                             <div class="text-[12px] text-white font-extrabold">
@@ -67,6 +81,34 @@ const showingNavigationDropdown = ref(false);
                             <div class="flex items-center">
                                 <div class="text-[15px] text-white -mt-1.5 font-extrabold">Account & List</div>
                                 <MenuDownIcon fillColor="#c2c2c2" :size="20" class="-mr-4 -mt-1 pr-1" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="accountAndList" class="bg-white absolute z-50 top-[56px] -ml-[230px] w-[480px] rounded-sm px-6">
+                        <div>
+                            <div class="flex items-center justify-between py-2.5 border-b">
+                                <div class="text-smp-2">Who's shopping? Select a profile.</div>
+                                <div class="flex items-center text-sm font-bold text-teal-600 hover:text-red-600 hover:underline">
+                                    Manage Profile
+                                    <ChevronRightIcon :size="20" fillColor="#808080" />
+                                </div>
+                            </div>
+
+                            <div class="flex">
+                                <div class="w-1/2 border-r">
+                                    <div class="pb-3">
+                                        <div class="font-extrabold pt-3">Your List</div>
+                                        <div class="text-sm hover:text-red-600 hover:underline pt-3">Create a list</div>
+                                    </div>
+                                </div>
+                                <div class="w-1/2 ml-5">
+                                    <div class="pb-3">
+                                        <div class="font-extrabold pt-3">Your Account</div>
+                                        <div class="text-sm hover:text-red-600 hover:underline pt-3">Account</div>
+                                        <div class="text-sm hover:text-red-600 hover:underline pt-3">Sign Out</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -95,8 +137,48 @@ const showingNavigationDropdown = ref(false);
 
         </div>
 
-        <div class="">
+        <div class="flex items-center justify-between bg-[#232f3e] h-[38px] fixed z-40 min-w-[1150px] w-full mt-[60px]">
+            <div class="flex">
+                <div @click="showMenu = true" class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                    <div class="flex items-center justify-between px-2">
+                        <MenuIcon fillColor="#F5F5F5" :size="26" class="mr-0.5" />
+                        <div class="text-[14px] text-white font-extrabold">All</div>
+                    </div>
+                </div>
+                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                    <div class="flex items-center justify-between px-2">
+                        <div class="text-[14px] text-white font-extrabold">Today's Deals</div>
+                    </div>
+                </div>
+                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                    <div class="flex items-center justify-between px-2">
+                        <div class="text-[14px] text-white font-extrabold">Gift Cards</div>
+                    </div>
+                </div>
+                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                    <div class="flex items-center justify-between px-2">
+                        <div class="text-[14px] text-white font-extrabold">Buy Again</div>
+                    </div>
+                </div>
+                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                    <div class="flex items-center justify-between px-2">
+                        <div class="text-[14px] text-white font-extrabold">Customer Service</div>
+                    </div>
+                </div>
+                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                    <div class="flex items-center justify-between px-2">
+                        <div class="text-[14px] text-white font-extrabold">Lam Ngoc Bui's Amazon.com</div>
+                    </div>
+                </div>
 
+            </div>
+            <div class="flex">
+                <div class="flex h-[30px] border-[1px] border-[#232f3e] rounded-sm hover:border-[1px] hover:border-gray-100 cursor-pointer">
+                    <div class="flex items-center justify-between px-2">
+                        <div class="text-[14px] text-white font-extrabold">Holiday Fashion Deals</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <main class="max-w-[1500px] mx-auto">
@@ -169,5 +251,39 @@ const showingNavigationDropdown = ref(false);
                 </ul>
             </div>
         </footer>
+    </div>
+
+    <div 
+        v-if="showMenu"
+        class="top-0 z-50 fixed w-full h-full bg-black bg-opacity-70"
+        :class="[showMenu ? 'animate__animated animate__fadeIn animate__faster' : '']"
+    >
+
+        <CloseIcon 
+            @click="showMenu = false"
+            :size="30"
+            fillColor="#DCDCDC"
+            class="ml-2.5 mt-3.5 left-80 cursor-pointer fixed z-50"
+            :class="[showMenu ? 'animate__animated animate__fadeIn animate__faster' : '']"
+        />
+
+        <div 
+            class="w-80 h-full bg-white"
+            :class="[showMenu ? 'animate__animated animate__slideInLeft animate__faster' : '']"
+        >
+            <div class="bg-[#232f3e] font-extrabold text-[18px] flex items-center p-2 text-white pl-7">
+                <span>Hello, Sign in</span>
+            </div>
+
+            <div class="font-extrabold text-[16px] pt-3 pb-1 pl-6 pr-3 text-black">
+                Shop By Department
+            </div>
+
+            <div class="hover:bg-gray-200 pl-6 pr-3">
+                <div class="py-2.5 text-[13px] text-black flex justify-between items-center hover:bg-gray-200 cursor-pointer">
+                    Computers <ChevronRightIcon :size="20" fillColor="#808080" />
+                </div>
+            </div>
+        </div>
     </div>
 </template>
