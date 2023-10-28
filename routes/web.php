@@ -46,6 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::put('/checkout', [CheckoutController::class, 'update'])->name('checkout.update');
+
+    Route::get('/checkout_success', function () { return Inertia::render('CheckoutSuccess'); })->name('checkout_success.index');
 });
 
 require __DIR__.'/auth.php';
