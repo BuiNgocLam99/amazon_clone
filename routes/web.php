@@ -7,6 +7,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -50,6 +51,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/checkout', [CheckoutController::class, 'update'])->name('checkout.update');
 
     Route::get('/checkout_success', function () { return Inertia::render('CheckoutSuccess'); })->name('checkout_success.index');
+});
+
+Route::get('/run-migration', function () {
+    Artisan::call('optimize:clear');
+    Artisan::call('migrate:fresh --sedd');
+
+    return 'Migrations executed successfully';
 });
 
 require __DIR__.'/auth.php';
